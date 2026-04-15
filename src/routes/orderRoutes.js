@@ -38,7 +38,10 @@ const jwt = require('jsonwebtoken');
  */
 router.post('/login', (req, res) => {
     const { user, password } = req.body;
-    if (user === 'jitterbit' && password === 'challenge') {
+    const adminUser = process.env.ADMIN_USER || 'jitterbit';
+    const adminPass = process.env.ADMIN_PASSWORD || 'challenge';
+
+    if (user === adminUser && password === adminPass) {
         const token = jwt.sign({ id: user }, process.env.JWT_SECRET, {
             expiresIn: '1h' // Token com duração de 1 hora
         });
@@ -107,7 +110,7 @@ router.get('/order/list', protect, orderController.getAllOrders);
  *         schema:
  *           type: string
  *         required: true
- *         description: O ID do pedido (ex: v10089016vdb-01).
+ *         description: "O ID do pedido (ex: v10089016vdb-01)."
  *     responses:
  *       200:
  *         description: Dados do pedido retornados com sucesso.
