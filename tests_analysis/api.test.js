@@ -95,6 +95,17 @@ describe('API Tests', () => {
             expect(response.body.success).toBe(true);
         });
 
+        it('should return 400 when required fields are missing', async () => {
+            const response = await request(app)
+                .post('/order')
+                .set('Authorization', `Bearer ${token}`)
+                .send({});
+
+            expect(response.status).toBe(400);
+            expect(response.body.success).toBe(false);
+            expect(response.body.error).toBe('Dados incompletos. Verifique o corpo da requisição.');
+        });
+
         it('should list all orders', async () => {
             MockOrder.find.mockResolvedValue([
                 { orderId: 'v123', value: 500 }
