@@ -25,7 +25,7 @@ A API utiliza JWT para proteger as rotas de pedidos. O endpoint `/login` valida 
 
 ## Resultados dos Testes
 
-Foram implementados 9 testes automatizados cobrindo os principais fluxos da API, utilizando `jest` e `supertest`. Os testes foram executados com sucesso (mocking da base de dados).
+Foram implementados 10 testes automatizados cobrindo os principais fluxos da API, utilizando `jest` e `supertest`. Os testes foram executados com sucesso (mocking da base de dados).
 
 ### Resumo dos Testes
 - **Login:** Sucesso com credenciais corretas e falha com incorretas.
