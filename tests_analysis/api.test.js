@@ -150,6 +150,19 @@ describe('API Tests', () => {
             expect(response.body.data.value).toBe(600);
         });
 
+        it('should return 404 for non-existent order during update', async () => {
+            MockOrder.findOneAndUpdate.mockResolvedValue(null);
+
+            const response = await request(app)
+                .put('/order/nonexistent')
+                .set('Authorization', `Bearer ${token}`)
+                .send({ valorTotal: 600 });
+
+            expect(response.status).toBe(404);
+            expect(response.body.success).toBe(false);
+            expect(response.body.error).toBe('Pedido não encontrado para atualização.');
+        });
+
         it('should delete an order', async () => {
             MockOrder.findOneAndDelete.mockResolvedValue({
                 orderId: 'v123'
